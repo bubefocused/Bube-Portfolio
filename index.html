@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- bootstrap grid css -->
+    <link rel="stylesheet" href="css/plugins/bootstrap-grid.css" />
+    <!-- font awesome css -->
+    <link rel="stylesheet" href="css/plugins/font-awesome.min.css" />
+    <!-- swiper css -->
+    <link rel="stylesheet" href="css/plugins/swiper.min.css" />
+    <!-- fancybox css -->
+    <link rel="stylesheet" href="css/plugins/fancybox.min.css" />
+    <!-- victory scss -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Custom styles for video cards -->
+    <style>
+      .youtube-hover-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 4px;
+        background: #000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s cubic-bezier(0, 0, 0.3642, 1);
+      }
+      
+      .youtube-hover-container:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
+      }
+      
+      .youtube-thumbnail {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.4s cubic-bezier(0, 0, 0.3642, 1), transform 0.4s cubic-bezier(0, 0, 0.3642, 1);
+        transform: scale(1.05);
+      }
+      
+      .youtube-hover-container:hover .youtube-thumbnail {
+        transform: scale(1);
+      }
+      
+      .youtube-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0, 0, 0.3642, 1);
+        border: none;
+        z-index: 1;
+      }
+      
+      .youtube-hover-container:hover .youtube-iframe,
+      .youtube-hover-container.playing .youtube-iframe {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      
+      .youtube-hover-container:hover .youtube-thumbnail,
+      .youtube-hover-container.playing .youtube-thumbnail {
+        opacity: 0;
+      }
+      
+      .play-button-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        opacity: 0.9;
+        transition: all 0.3s cubic-bezier(0, 0, 0.3642, 1);
+        pointer-events: none;
+      }
+      
+      .play-button-overlay svg {
+        width: 68px;
+        height: 48px;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s cubic-bezier(0, 0, 0.3642, 1);
+      }
+      
+      .youtube-hover-container:hover .play-button-overlay {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+      
+      /* Override mil-team-card padding for video cards */
+      .mil-team-card.mil-video-card {
+        padding-bottom: 0 !important;
+        position: relative;
+      }
+      
+      /* Make description appear below video instead of overlaying */
+      .mil-team-card.mil-video-card .mil-description.mil-video-description {
+        position: relative !important;
+        opacity: 1 !important;
+        background: transparent !important;
+        padding: 20px 0 0 0 !important;
+        text-align: left !important;
+        display: block !important;
+        height: auto !important;
+        width: 100% !important;
+        top: auto !important;
+        left: auto !important;
+        pointer-events: auto !important;
+      }
+      
+      .mil-team-card.mil-video-card .mil-description.mil-video-description .mil-secrc-text {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      
+      .mil-team-card {
+        border-radius: 4px;
+        overflow: visible;
+      }
+      
+      .mil-team-card .mil-description {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, transparent 100%);
+        padding: 40px 30px 30px;
+      }
+      
+      .mil-team-card:hover .mil-description {
+        opacity: 1;
+      }
+      
+      .mil-team-card .mil-description h5 a {
+        font-size: 16px;
+        line-height: 1.4;
+        font-weight: 500;
+      }
+      
+      .mil-team-card .mil-description .mil-link {
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      
+      /* Skills flex container */
+      .skills-flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      @media (min-width: 768px) {
+        .skills-flex-container {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+        
+        .skills-flex-container p {
+          flex: 1 1 calc(50% - 10px);
+          min-width: 250px;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .play-button-overlay svg {
+          width: 50px;
+          height: 35px;
+        }
+        
+        .youtube-hover-container {
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+    <!-- page name -->
+    <title>Ebube Ozurumba</title>
+  </head>
+
+  <body>
+    <!-- wrapper -->
+    <div class="mil-wrapper" id="top">
+      <!-- cursor -->
+      <div class="mil-ball">
+        <span class="mil-icon-1">
+          <svg viewBox="0 0 128 128">
+            <path
+              d="M106.1,41.9c-1.2-1.2-3.1-1.2-4.2,0c-1.2,1.2-1.2,3.1,0,4.2L116.8,61H11.2l14.9-14.9c1.2-1.2,1.2-3.1,0-4.2	c-1.2-1.2-3.1-1.2-4.2,0l-20,20c-1.2,1.2-1.2,3.1,0,4.2l20,20c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9c1.2-1.2,1.2-3.1,0-4.2	L11.2,67h105.5l-14.9,14.9c-1.2,1.2-1.2,3.1,0,4.2c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9l20-20c1.2-1.2,1.2-3.1,0-4.2L106.1,41.9	z"
+            />
+          </svg>
+        </span>
+        <div class="mil-more-text">More</div>
+        <div class="mil-choose-text">Сhoose</div>
+      </div>
+      <!-- cursor end -->
+
+      <!-- preloader -->
+      <div class="mil-preloader">
+        <div class="mil-preloader-animation">
+          <div class="mil-pos-abs mil-animation-1">
+            <p class="mil-h3 mil-muted mil-thin">Engineering</p>
+            <p class="mil-h3 mil-muted">Smarter Processes</p>
+            <p class="mil-h3 mil-muted mil-thin">Building</p>
+            <p class="mil-h3 mil-muted">Better Futures</p>
+          </div>
+          <div class="mil-pos-abs mil-animation-2">
+            <div class="mil-reveal-frame">
+              <p class="mil-reveal-box"></p>
+              <p class="mil-h3 mil-muted mil-thin">Ebube Ozurumba</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- preloader end -->
+
+      <!-- scrollbar progress -->
+      <div class="mil-progress-track">
+        <div class="mil-progress"></div>
+      </div>
+      <!-- scrollbar progress end -->
+
+      <!-- menu -->
+      <div class="mil-menu-frame">
+        <!-- frame clone -->
+        <div class="mil-frame-top">
+          <a href="index.html" class="mil-logo">Bube</a>
+          <div class="mil-menu-btn">
+            <span></span>
+          </div>
+        </div>
+        <!-- frame clone end -->
+        <div class="container">
+          <div class="mil-menu-content">
+            <div class="row">
+              <div class="col-xl-5">
+                <nav class="mil-main-menu" id="swupMenu">
+                  <ul>
+                    <li class="mil-has-children">
+                      <a href="project category.html">Projects</a>
+                    </li>
+                    <li class="mil-has-children">
+                      <a href="https://drive.google.com/file/d/1zMLbFC4R2l5Rw3zKyCMv-7SbCUBHVBNW/view?usp=drivesdk" class=""
+   target="_blank"
+   rel="noopener noreferrer"
+   data-no-swup>
+   Resume
+</a>
+                    </li>
+                    <li class="mil-has-children">
+                      <a href="certifications.html">Certifications</a>
+                    </li>
+                     <li class="mil-has-children">
+                      <a href="research.html">Research</a>
+                    </li>
+                    <li class="mil-has-children">
+                      <a href="about.html">About Me</a>
+                    </li>
+                    <li class="mil-has-children">
+                      <a href="skills.html">Skills & Tools</a>
+                    </li>
+                    <li class="mil-up">
+  <a
+    href="mailto:ebubeozurumba@gmail.com"
+    data-no-swup
+  >
+    Contact
+  </a>
+</li>
+               
+                  </ul>
+                </nav>
+              </div>
+              <div class="col-xl-7">
+                <div class="mil-menu-right-frame">
+                  <div class="mil-animation-in">
+                    <div class="mil-animation-frame">
+                      <div
+                        class="mil-animation mil-position-1 mil-scale"
+                        data-value-1="2"
+                        data-value-2="2"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="mil-menu-right">
+                    <div class="row">
+                      <div class="col-lg-8 mil-mb-60">
+                        <h6 class="mil-muted mil-mb-30">Projects</h6>
+
+                        <ul class="mil-menu-list">
+                          <li>
+                            <a href="project-1.html" class="mil-light-soft"
+                              >GreenFlow Energy Optimization</a
+                            >
+                          </li>
+                          <li>
+                            <a href="project-2.html" class="mil-light-soft"
+                              >LeanLine Manufacturing Redesign</a
+                            >
+                          </li>
+                          <li>
+                            <a href="project-3.html" class="mil-light-soft"
+                              >SupplyChain Sync: Efficiency Enhancement</a
+                            >
+                          </li>
+                          <li>
+                            <a href="project-4.html" class="mil-light-soft"
+                              >ThermalPro Renewable Heating Design</a
+                            >
+                          </li>
+                          <li>
+                            <a href="project-5.html" class="mil-light-soft"
+                              >EcoFusion Process Improvement</a
+                            >
+                          </li>
+                          <li>
+                            <a href="project-6.html" class="mil-light-soft"
+                              >SmartGrid Energy Integration</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-lg-4 mil-mb-60">
+                        <h6 class="mil-muted mil-mb-30">Useful links</h6>
+
+                        <ul class="mil-menu-list">
+                          <li>
+                            <a href="#." class="mil-light-soft"
+                              >Privacy Policy</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#." class="mil-light-soft"
+                              >Terms and conditions</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#." class="mil-light-soft"
+                              >Cookie Policy</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#." class="mil-light-soft">Careers</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="mil-divider mil-mb-60"></div>
+                    <div class="row justify-content-between">
+                      <div class="col-lg-4 mil-mb-60">
+                        <h6 class="mil-muted mil-mb-30">United States</h6>
+
+                        <p class="mil-light-soft mil-up">
+                          71 South Los Carneros Road, California
+                          <span class="mil-no-wrap">+1 (309) 237-9651</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- menu -->
+
+      <!-- curtain -->
+      <div class="mil-curtain"></div>
+      <!-- curtain end -->
+
+      <!-- frame -->
+      <div class="mil-frame">
+        <div class="mil-frame-top">
+          <a href="index.html" class="mil-logo">Bube</a>
+          <div class="mil-menu-btn">
+            <span></span>
+          </div>
+        </div>
+        <div class="mil-frame-bottom">
+          <div class="mil-current-page"></div>
+          <div class="mil-back-to-top">
+            <a href="#top" class="mil-link mil-dark mil-arrow-place">
+              <span>Back to top</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- frame end -->
+
+      <!-- content -->
+      <div class="mil-content">
+        <div id="swupMain" class="mil-main-transition">
+          <!-- banner -->
+          <section class="mil-banner mil-dark-bg">
+            <div class="mi-invert-fix">
+              <div class="mil-animation-frame">
+                <div
+                  class="mil-animation mil-position-1 mil-scale"
+                  data-value-1="7"
+                  data-value-2="1.6"
+                ></div>
+                <div
+                  class="mil-animation mil-position-2 mil-scale"
+                  data-value-1="4"
+                  data-value-2="1"
+                ></div>
+                <div
+                  class="mil-animation mil-position-3 mil-scale"
+                  data-value-1="1.2"
+                  data-value-2=".1"
+                ></div>
+              </div>
+
+              <div class="mil-gradient"></div>
+
+              <div class="container">
+                <div class="mil-banner-content mil-up">
+                  <h1 class="mil-muted mil-mb-60">
+                    Engineering
+                    <span class="mil-thin">With Innovation</span><br />
+                    Delivering <span class="mil-thin">with Excellence</span>
+                  </h1>
+                  <div class="row">
+                    <div class="col-md-7 col-lg-5">
+                      <!-- <p class="mil-light-soft mil-mb-60">
+                        Welcome to a world where engineering meets innovation
+                        and optimization. Together, let's build a future where
+                        excellence in design and efficiency transforms ideas
+                        into impactful solutions.
+                      </p> -->
+                    </div>
+                  </div>
+
+                  <a href="project category.html" class="mil-button mil-arrow-place mil-btn-space">
+                                    <span>Explore my Projects</span>
+                                </a>
+
+                                <a href="https://drive.google.com/file/d/1zMLbFC4R2l5Rw3zKyCMv-7SbCUBHVBNW/view?usp=drivesdk" class="resume-btn"
+   target="_blank"
+   rel="noopener noreferrer"
+   data-no-swup>
+   VIEW MY RESUME
+</a>
+
+
+
+                  <div class="mil-circle-text">
+                    <svg
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 300 300"
+                      enable-background="new 0 0 300 300"
+                      xml:space="preserve"
+                      class="mil-ct-svg mil-rotate"
+                      data-value="360"
+                    >
+                      <defs>
+                        <path
+                          id="circlePath"
+                          d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "
+                        />
+                      </defs>
+                      <circle cx="150" cy="100" r="75" fill="none" />
+                      <g>
+                        <use xlink:href="#circlePath" fill="none" />
+                        <text style="letter-spacing: 6.5px">
+                          <!-- circle text -->
+                          <textPath xlink:href="#circlePath">
+                            Scroll down - Scroll down -
+                          </textPath>
+                        </text>
+                      </g>
+                    </svg>
+                    <a
+                      href="#about"
+                      class="mil-button mil-arrow-place mil-icon-button mil-arrow-down"
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- banner end -->
+
+          <!-- about -->
+          <section id="about">
+            <div class="container mil-p-120-30">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-xl-5">
+                  <div class="mil-mb-90">
+                    <h2 class="mil-up mil-mb-60">
+                      About <span class="mil-thin">Me</span>
+                    </h2>
+                    <p class="mil-up mil-mb-30">
+                      Ebubechukwu Ozurumba aka <strong>Bube,</strong> is a results-driven Engineer recognized for designing smarter systems, optimizing manufacturing operations, and turning complex technical challenges into efficient, scalable solutions.
+
+                    </p>
+
+                    <p class="mil-up mil-mb-30">
+                      He brings strong expertise in manufacturing engineering, process improvement, CAD design, CNC processes, lean methodologies, and data-driven optimization. His work spans cycle-time reduction, process standardization, scrap and waste minimization, and the design of tooling, fixtures, and other functional engineering solutions.
+
+                    </p>
+
+                    <p class="mil-up mil-mb-30">
+                      Bube approaches engineering with a unique blend of analytical discipline and creative problem-solving. He is passionate about Industry 4.0, digital workflows, and exploring how AI can transform modern manufacturing and process automation.
+
+                    </p>
+
+                    <p class="mil-up mil-mb-60">
+                      He holds a Bachelor’s degree in Mechanical Engineering and a Master’s degree in Manufacturing Engineering Technology. He is also a certified Lean Six Sigma Green Belt with additional training in Operational Excellence.
+
+                    </p>
+
+                    <div class="mil-about-quote">
+                      <div class="mil-avatar mil-up">
+                        <img
+                          src="img/faces/customers/about img.jpg"
+                          alt="Founder"
+                        />
+                      </div>
+                      <h6 class="mil-quote mil-up">
+                        Engineering Smarter Processes. Building Better Futures.
+                        
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="mil-about-photo mil-mb-90">
+                    <div class="mil-lines-place"></div>
+                    <div
+                      class="mil-up mil-img-frame"
+                      style="padding-bottom: 160%"
+                    >
+                      <img
+                        src="img/faces/customers/About me img.jpg"
+                        alt="img"
+                        class="mil-scale"
+                        data-value-1="1"
+                        data-value-2="1.2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- about end -->
+
+
+          <!-- Start project category section -->
+          <section class="mil-dark-bg">
+            <div class="mi-invert-fix">
+              <div class="mil-animation-frame">
+                <div
+                  class="mil-animation mil-position-1 mil-scale"
+                  data-value-1="2.4"
+                  data-value-2="1.4"
+                  style="top: 300px; right: -100px"
+                ></div>
+                <div
+                  class="mil-animation mil-position-2 mil-scale"
+                  data-value-1="2"
+                  data-value-2="1"
+                  style="left: 150px"
+                ></div>
+              </div>
+              <div class="container mil-p-120-0 mil-margin">
+                <div class="mil-mb-90">
+                  <div class="row">
+                    <div class="col-lg-10">
+                      <span
+                        class="mil-suptitle mil-light-soft mil-suptitle-right mil-up"
+                        >Let’s create solutions that shape a
+                        better future.</span
+                      >
+                    </div>
+                  </div>
+                  <div class="mil-complex-text justify-content-center mil-up">
+                    <h2 class="mil-h1 mil-muted mil-center">
+                      My Projects
+                      <span class="mil-thin">by Focus Area</span>
+                    </h2>
+                  </div>
+                </div>
+
+
+
+                <div class="row mil-services-grid m-0">
+                  <div
+                    class="expertise-box col-md-6 col-lg-z col-md-6 col-lg-3 mil-services-grid-item P-2"
+                  >
+                    <a
+                      href="design-engineering-projects.html"
+                      class="mil-service-card-lg mil-more mil-accent-cursor mil-offset"
+                    >
+                      <h4 class="mil-muted mil-up mil-mb-30">
+                        Design Engineering <br />& Technical Solutions.
+                      </h4>
+                      
+                      <ul class="mil-service-list mil-light mil-mb-30">
+                        <li class="mil-up">Mechanical Design</li>
+                        <li class="mil-up">CAD and GD&T</li>
+                        <li class="mil-up">Tooling and Fixtures</li>
+                        <li class="mil-up">Prototyping & Addictive Manufacturing</li>
+                      </ul>
+                      <div
+                        class="mil-link mil-accent mil-arrow-place mil-up view-more-secondary-btn"
+                      >
+                        <span>View Projects</span>
+                      </div>
+                    </a>
+                  </div>
+                  <div
+                    class="expertise-box col-md-6 col-lg-z col-md-6 col-lg-3 mil-services-grid-item P-2"
+                  >
+                    <a
+                      href="operational-excellence-projects.html"
+                      class="mil-service-card-lg mil-more mil-accent-cursor mil-offset"
+                    >
+                      <h4 class="mil-muted mil-up mil-mb-30">
+                        Operational Excellence & <br />Smart Manufacturing
+                      </h4>
+                      
+                      <ul class="mil-service-list mil-light mil-mb-30">
+                        <li class="mil-up">Lean & Continuous Improvement</li>
+                        <li class="mil-up">Process & workflow optimization</li>
+                        <li class="mil-up">Operational Analytics & OEE</li>
+                        <li class="mil-up">Cost, Scrap & Performance Optimization</li>
+                      </ul>
+                      <div
+                        class="mil-link mil-accent mil-arrow-place mil-up view-more-secondary-btn"
+                      >
+                        <span>View Projects</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="row mil-services-grid m-0"></div>
+              </div>
+            </div>
+          </section>
+          <!-- End project category section -->
+
+          <!-- Skills Section -->
+          <section>
+            <div class="container mil-p-120-30">
+              <div class="col justify-content-between align-items-center">
+                <div class="col-lg-5 col-xl-4">
+                  <div class="mil-mb-90">
+                    <h2 class="mil-up mil-mb-60">Skills</h2>
+                    <div class="skills-flex-container">
+                      <p class="mil-up mil-mb-30 selected-project-description"><span class="philosophy">Manufacturing & Process Optimization</span> <br /> Lean Six Sigma • DMAIC • VSM • 5S • A3 • OEE • RCA • CNC Programming </p>
+
+                      <p class="mil-up mil-mb-30 selected-project-description"><span class="philosophy">Design Engineering</span> <br /> SolidWorks • AutoCAD • GD&T • FEA</p>
+
+                      <p class="mil-up mil-mb-30 selected-project-description"><span class="philosophy">Data Analytics & Visualization</span> <br /> Excel (Advanced) • Power BI • SQL • Python • Minitab • MS Projects • SPC</p>
+
+                      <p class="mil-up mil-mb-30 selected-project-description"><span class="philosophy">Industry 4.0</span> <br /> Digital Workflows • Automation Concepts • Simulation</p>
+                    </div>
+                    <div class="mil-up">
+                      <a
+                        href="project category.html"
+                        class="mil-button mil-arrow-place mil-mb-60"
+                        ><span>Explore my Projects</span></a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="cols-12 gap-4">
+                  <div class="mil-team-list">
+                    <div class="mil-lines-place"></div>
+
+                      <!-- Video 1 -->
+                      <div class="col-12 col-md-6 col-lg-8 mil-mb-10">
+                        <div class="mil-team-card mil-video-card mil-up">
+                          <div class="youtube-hover-container">
+                            <img src="img/faces/WELD1.png" alt="Automated Robot Weld Cell" class="youtube-thumbnail" />
+                            <iframe 
+                              class="youtube-iframe" 
+                              src="https://www.youtube.com/embed/Rd2rGMqBU8I?enablejsapi=1&mute=1" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                              allowfullscreen
+                            ></iframe>
+                            <div class="play-button-overlay">
+                              <svg width="68" height="48" viewBox="0 0 68 48">
+                                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                                <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="mil-description mil-video-description">
+                            <div class="mil-secrc-text">
+                              <h5 class="mil-muted mil-mb-5">
+                                <a
+                                  href="https://youtu.be/Rd2rGMqBU8I?si=lCkE0MKmoHJXcW05"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  data-no-swup
+                                >Automated Robot Weld Cell</a>
+                              </h5>
+                              <p class="mil-link mil-light-soft mil-mb-10">
+                                Design Engineering
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Video 2 -->
+                      <div class="col-12 col-md-6 col-lg-8 mil-mb-10">
+                        <div class="mil-team-card mil-video-card mil-up">
+                          <div class="youtube-hover-container">
+                            <img src="img/faces/WELD2.png" alt="Bottle Poka-Yoke Detection & Sorting System" class="youtube-thumbnail" />
+                            <iframe 
+                              class="youtube-iframe" 
+                              src="https://www.youtube.com/embed/3d1Te70gU28?enablejsapi=1&mute=1" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                              allowfullscreen
+                            ></iframe>
+                            <div class="play-button-overlay">
+                              <svg width="68" height="48" viewBox="0 0 68 48">
+                                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                                <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="mil-description mil-video-description">
+                            <div class="mil-secrc-text">
+                              <h5 class="mil-muted mil-mb-5">
+                                <a href="https://youtu.be/3d1Te70gU28?si=bpNertu8QTzUGAD0" target="_blank" rel="noopener noreferrer" data-no-swup
+                                >Bottle Poka-Yoke Detection & Sorting System</a>
+                              </h5>
+                              <p class="mil-link mil-light-soft mil-mb-10">
+                                Design Engineering
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Video 3 -->
+                      <div class="col-12 col-md-6 col-lg-8 mil-mb-10">
+                        <div class="mil-team-card mil-video-card mil-up">
+                          <div class="youtube-hover-container">
+                            <img src="img/faces/WELD4.png" alt="Conveyor-Integrated Inline Bottle Inversion Fixture" class="youtube-thumbnail" />
+                            <iframe 
+                              class="youtube-iframe" 
+                              src="https://www.youtube.com/embed/pLKiVhX3T9s?enablejsapi=1&mute=1" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                              allowfullscreen
+                            ></iframe>
+                            <div class="play-button-overlay">
+                              <svg width="68" height="48" viewBox="0 0 68 48">
+                                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                                <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="mil-description mil-video-description">
+                            <div class="mil-secrc-text">
+                              <h5 class="mil-muted mil-mb-5">
+                                <a href="https://youtu.be/pLKiVhX3T9s?si=VgZjGAbwpQZ7DsW4" target="_blank" rel="noopener noreferrer" data-no-swup
+                                >Conveyor-Integrated Inline Bottle Inversion Fixture for Bottom Labeling</a>
+                              </h5>
+                              <p class="mil-link mil-light-soft mil-mb-10">
+                                Design Engineering
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Non-video card (WELD3) -->
+                      <div class="col-12 col-md-6 col-lg-8 mil-mb-10">
+                        <div class="mil-team-card mil-up">
+                          <img src="img/faces/WELD3.png" alt="Waste Cost Analysis & Process Optimization" />
+                          <div class="mil-description">
+                            <div class="mil-secrc-text">
+                              <h5 class="mil-muted mil-mb-5">
+                                <a
+                                  href="https://drive.google.com/file/d/1giD82c2WelXQxC6YP0qoyTPCcntOX9ER/view?usp=drivesdk"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  data-no-swup
+                                >Waste Cost Analysis & Process Optimization</a>
+                              </h5>
+                              <p class="mil-link mil-light-soft mil-mb-10">
+                                Smart Manufacturing
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- End Skills Section -->
+
+
+          <!-- footer -->
+          <footer class="mil-dark-bg">
+            <div class="mi-invert-fix">
+              <div class="container mil-p-120-60">
+                <div class="row justify-content-between">
+                  <div class="col-md-4 col-lg-4 mil-mb-60">
+                    <div class="mil-muted mil-logo mil-up mil-mb-30">
+                      Bube.
+                    </div>
+
+                    <p class="mil-light-soft mil-up mil-mb-30">
+                      © Copyright 2026 - Ebube ozurumba. All Rights Reserved.
+                    </p>
+                  </div>
+                  <div class="col-md-7 col-lg-6">
+                    <div class="row justify-content-end">
+                      <div class="col-md-6 col-lg-7">
+                        <nav class="mil-footer-menu mil-mb-60">
+                          <ul>
+                            <li class="mil-up mil-active">
+                              <a href="index.html">Home</a>
+                            </li>
+                            <li class="mil-up">
+                              <a href="project category.html">Projects</a>
+                            </li>
+                            <li class="mil-up">
+  <a
+    href="https://drive.google.com/file/d/1zMLbFC4R2l5Rw3zKyCMv-7SbCUBHVBNW/view?usp=drivesdk"
+    target="_blank"
+    rel="noopener noreferrer"
+    data-no-swup
+  >
+    Resume
+  </a>
+</li>
+
+
+
+                            <li class="mil-up">
+                              <a href="certifications.html">Certifications</a>
+                            </li>
+                            <li class="mil-up">
+                              <a href="about.html">About Me</a>
+                            </li>
+
+<li class="mil-up">
+  <a
+    href="mailto:ebubeozurumba@gmail.com"
+    data-no-swup
+  >
+    Contact
+  </a>
+</li>
+
+                          </ul>
+                        </nav>
+                      </div>
+                      <div class="col-md-6 col-lg-5">
+                        <ul class="mil-menu-list mil-up mil-mb-60">
+                          <li>
+                            <h6 class="mil-muted mil-up mil-mb-30">
+                              United states
+                            </h6>
+                          </li>
+                          <li>
+                            <a href="#." class="mil-light-soft"
+                              >+1 (309) 237-9651</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#." class="mil-light-soft"
+                              >ebubeozurumba@gmail.com</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+          <!-- footer end -->
+
+          <!-- hidden elements -->
+          <div class="mil-hidden-elements">
+            <div class="mil-dodecahedron">
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div class="mil-pentagon">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="mil-arrow"
+            >
+              <path
+                d="M 14 5.3417969 C 13.744125 5.3417969 13.487969 5.4412187 13.292969 5.6367188 L 13.207031 5.7226562 C 12.816031 6.1136563 12.816031 6.7467188 13.207031 7.1367188 L 17.070312 11 L 4 11 C 3.448 11 3 11.448 3 12 C 3 12.552 3.448 13 4 13 L 17.070312 13 L 13.207031 16.863281 C 12.816031 17.254281 12.816031 17.887344 13.207031 18.277344 L 13.292969 18.363281 C 13.683969 18.754281 14.317031 18.754281 14.707031 18.363281 L 20.363281 12.707031 C 20.754281 12.316031 20.754281 11.682969 20.363281 11.292969 L 14.707031 5.6367188 C 14.511531 5.4412187 14.255875 5.3417969 14 5.3417969 z"
+              />
+            </svg>
+
+            <svg
+              width="250"
+              viewBox="0 0 300 1404"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="mil-lines"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M1 892L1 941H299V892C299 809.71 232.29 743 150 743C67.7096 743 1 809.71 1 892ZM0 942H300V892C300 809.157 232.843 742 150 742C67.1573 742 0 809.157 0 892L0 942Z"
+                class="mil-move"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M299 146V97L1 97V146C1 228.29 67.7096 295 150 295C232.29 295 299 228.29 299 146ZM300 96L0 96V146C0 228.843 67.1573 296 150 296C232.843 296 300 228.843 300 146V96Z"
+                class="mil-move"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M299 1H1V1403H299V1ZM0 0V1404H300V0H0Z"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M150 -4.37115e-08L150 1404L149 1404L149 0L150 -4.37115e-08Z"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M150 1324C232.29 1324 299 1257.29 299 1175C299 1092.71 232.29 1026 150 1026C67.7096 1026 1 1092.71 1 1175C1 1257.29 67.7096 1324 150 1324ZM150 1325C232.843 1325 300 1257.84 300 1175C300 1092.16 232.843 1025 150 1025C67.1573 1025 0 1092.16 0 1175C0 1257.84 67.1573 1325 150 1325Z"
+                class="mil-move"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M300 1175H0V1174H300V1175Z"
+                class="mil-move"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M150 678C232.29 678 299 611.29 299 529C299 446.71 232.29 380 150 380C67.7096 380 1 446.71 1 529C1 611.29 67.7096 678 150 678ZM150 679C232.843 679 300 611.843 300 529C300 446.157 232.843 379 150 379C67.1573 379 0 446.157 0 529C0 611.843 67.1573 679 150 679Z"
+                class="mil-move"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M299 380H1V678H299V380ZM0 379V679H300V379H0Z"
+                class="mil-move"
+              />
+            </svg>
+          </div>
+          <!-- hidden elements end -->
+        </div>
+      </div>
+      <!-- content -->
+    </div>
+    <!-- wrapper end -->
+
+    <!-- jQuery js -->
+    <script src="js/plugins/jquery.min.js"></script>
+    <!-- swup js -->
+    <script src="js/plugins/swup.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/plugins/swiper.min.js"></script>
+    <!-- fancybox js -->
+    <script src="js/plugins/fancybox.min.js"></script>
+    <!-- gsap js -->
+    <script src="js/plugins/gsap.min.js"></script>
+    <!-- scroll smoother -->
+    <script src="js/plugins/smooth-scroll.js"></script>
+    <!-- scroll trigger js -->
+    <script src="js/plugins/ScrollTrigger.min.js"></script>
+    <!-- scroll to js -->
+    <script src="js/plugins/ScrollTo.min.js"></script>
+    <!-- victory js -->
+    <script src="js/main.js"></script>
+    <!-- YouTube hover play script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const containers = document.querySelectorAll('.youtube-hover-container');
+        
+        containers.forEach(container => {
+          const thumbnail = container.querySelector('.youtube-thumbnail');
+          const iframe = container.querySelector('.youtube-iframe');
+          const playButton = container.querySelector('.play-button-overlay');
+          let isPlaying = false;
+          let baseSrc = iframe.src;
+          
+          container.addEventListener('mouseenter', function() {
+            if (!isPlaying) {
+              // Add autoplay parameter to the iframe src
+              if (!baseSrc.includes('autoplay=1')) {
+                const separator = baseSrc.includes('?') ? '&' : '?';
+                iframe.src = baseSrc + separator + 'autoplay=1';
+              }
+              container.classList.add('playing');
+              if (playButton) {
+                playButton.style.opacity = '0';
+              }
+              isPlaying = true;
+            }
+          });
+          
+          container.addEventListener('mouseleave', function() {
+            // Reset iframe src to remove autoplay
+            iframe.src = baseSrc;
+            container.classList.remove('playing');
+            if (playButton) {
+              playButton.style.opacity = '0.9';
+            }
+            isPlaying = false;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
