@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
@@ -15,169 +15,6 @@
     <link rel="stylesheet" href="css/plugins/fancybox.min.css" />
     <!-- victory scss -->
     <link rel="stylesheet" href="css/style.css" />
-    <style>
-      .youtube-hover-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        overflow: hidden;
-        cursor: pointer;
-        border-radius: 4px;
-        background: #000;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0, 0, 0.3642, 1);
-      }
-      
-      .youtube-hover-container:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-        transform: translateY(-4px);
-      }
-      
-      .youtube-thumbnail {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: opacity 0.4s cubic-bezier(0, 0, 0.3642, 1), transform 0.4s cubic-bezier(0, 0, 0.3642, 1);
-        transform: scale(1.05);
-      }
-      
-      .youtube-hover-container:hover .youtube-thumbnail {
-        transform: scale(1);
-      }
-      
-      .youtube-iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s cubic-bezier(0, 0, 0.3642, 1);
-        border: none;
-        z-index: 1;
-      }
-      
-      .youtube-hover-container:hover .youtube-iframe,
-      .youtube-hover-container.playing .youtube-iframe {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      
-      .youtube-hover-container:hover .youtube-thumbnail,
-      .youtube-hover-container.playing .youtube-thumbnail {
-        opacity: 0;
-      }
-      
-      .play-button-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        opacity: 0.9;
-        transition: all 0.3s cubic-bezier(0, 0, 0.3642, 1);
-        pointer-events: none;
-      }
-      
-      .play-button-overlay svg {
-        width: 68px;
-        height: 48px;
-        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-        transition: transform 0.3s cubic-bezier(0, 0, 0.3642, 1);
-      }
-      
-      .youtube-hover-container:hover .play-button-overlay {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.8);
-      }
-      
-      /* Override mil-team-card padding for video cards */
-      .mil-team-card.mil-video-card {
-        padding-bottom: 0 !important;
-        position: relative;
-      }
-      
-      /* Make description appear below video instead of overlaying */
-      .mil-team-card.mil-video-card .mil-description.mil-video-description {
-        position: relative !important;
-        opacity: 1 !important;
-        background: transparent !important;
-        padding: 20px 0 0 0 !important;
-        text-align: left !important;
-        display: block !important;
-        height: auto !important;
-        width: 100% !important;
-        top: auto !important;
-        left: auto !important;
-        pointer-events: auto !important;
-      }
-      
-      .mil-team-card.mil-video-card .mil-description.mil-video-description .mil-secrc-text {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-      
-      .mil-team-card {
-        border-radius: 4px;
-        overflow: visible;
-      }
-      
-      .mil-team-card .mil-description {
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, transparent 100%);
-        padding: 40px 30px 30px;
-      }
-      
-      .mil-team-card:hover .mil-description {
-        opacity: 1;
-      }
-      
-      .mil-team-card .mil-description h5 a {
-        font-size: 16px;
-        line-height: 1.4;
-        font-weight: 500;
-      }
-      
-      .mil-team-card .mil-description .mil-link {
-        font-size: 13px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      
-      /* Skills flex container */
-      .skills-flex-container {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-      }
-      
-      @media (min-width: 768px) {
-        .skills-flex-container {
-          flex-direction: row;
-          flex-wrap: wrap;
-          gap: 20px;
-        }
-        
-        .skills-flex-container p {
-          flex: 1 1 calc(50% - 10px);
-          min-width: 250px;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .play-button-overlay svg {
-          width: 50px;
-          height: 35px;
-        }
-        
-        .youtube-hover-container {
-          margin-bottom: 20px;
-        }
-      }
-    </style>
     <!-- page name -->
     <title>Design Engineering Portfolio-Ebube Ozurumba</title>
   </head>
@@ -354,7 +191,7 @@
                         <h6 class="mil-muted mil-mb-30">United States</h6>
 
                         <p class="mil-light-soft mil-up">
-                          71 South Los Carneros Road, California
+                          Chicago, Illinois
                           <span class="mil-no-wrap">+1 (309) 237-9651</span>
                         </p>
                       </div>
@@ -414,205 +251,427 @@
           </div>
           <!-- banner end -->
 
+          <!-- -------------------------------------------------------------------------------------- -->
+
           <!-- portfolio -->
           <section id="portfolio">
             <div class="container mil-portfolio mil-p-120-60">
+              <div class="mil-lines-place"></div>
+              <div class="mil-lines-place mil-lines-long"></div>
 
               <div class="row justify-content-between align-items-center">
-                 <div class="col-lg-6 project-demacation">
-                  <a
-                    href="https://drive.google.com/file/d/12u0UMCw9bscdXiUa5qjco1mBnSbrAWyx/view?usp=drivesdk"
-                    class="mil-portfolio-item mil-more mil-mb-30"
-                  target="_blank"
-                        rel="noopener noreferrer"
-                        data-no-swup
-                      >
-                    <!-- <div class="mil-image-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <video autoplay loop muted playsinline>
-                          <source src="img/works/SH2.mp4" type="video/mp4" />
-                        </video>
-                      </div>
-                    </div> -->
-
-                     <!-- Video 1 -->
-                     <div class="col-12 col-md-6 col-lg-12 mil-mb-10">
-                      <div class="mil-team-card mil-video-card mil-up">
-                        <div class="youtube-hover-container">
-                          <img src="img/faces/WELD1.png" alt="Automated Robot Weld Cell" class="youtube-thumbnail" />
-                          <iframe 
-                            class="youtube-iframe" 
-                            src="https://www.youtube.com/embed/Rd2rGMqBU8I?enablejsapi=1&mute=1" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                          ></iframe>
-                          <div class="play-button-overlay">
-                            <svg width="68" height="48" viewBox="0 0 68 48">
-                              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
-                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                            </svg>
-                          </div>
-                        </div>
-                        </div>
-                    </div>
-
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <!-- <div class="mil-label mil-upper mil-accent">
-                          DESIGN ENGINEERING
-                        </div> -->
-                        <div class="mil-label mil-upper"></div>
-                      </div>
-                      <h4 class="mil-up mil-mb-30">
-                        Automated Dual-Robot Welding Cell 
-                      </h4>
-                      <p class="mil-text-xls mil-dark mil-up mil-mb-30">
-                        This project focused on the design and development of a
-                        fully automated dual-robot welding cell aimed at
-                        eliminating manual handling, stabilizing workflow and significantly improving production.
-                      </p>
-
-                      <a
-                        href="https://drive.google.com/file/d/12u0UMCw9bscdXiUa5qjco1mBnSbrAWyx/view?usp=drivesdk"
-                        class="mil-button mil-arrow-place mil-btn-space mil-mb-60"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-no-swup
-                      >
-                        <span>View Case Study</span>
-                      </a>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-6 project-demacation">
-                  <a
-                    href=""
-                    class="mil-portfolio-item mil-more mil-mb-30"
+                <!-- VIDEO 1 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                    data-value-1="60"
+                    data-value-2="-60"
                   >
-                    <!-- <div class="mil-image-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <video autoplay loop muted playsinline>
-                          <source src="img/works/SH.mp4" type="video/mp4" />
-                        </video>
-                      </div>
-                    </div> -->
-                    <div class="col-12 col-md-6 col-lg-12 mil-mb-10">
-                      <div class="mil-team-card mil-video-card mil-up">
-                        <div class="youtube-hover-container">
-                          <img src="img/faces/WELD2.png" alt="Bottle Poka-Yoke Detection & Sorting System" class="youtube-thumbnail" />
-                          <iframe 
-                            class="youtube-iframe" 
-                            src="https://www.youtube.com/embed/3d1Te70gU28?enablejsapi=1&mute=1" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                          ></iframe>
-                          <div class="play-button-overlay">
-                            <svg width="68" height="48" viewBox="0 0 68 48">
-                              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
-                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                            </svg>
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/Rd2rGMqBU8I"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
                           </div>
                         </div>
-                        </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <!-- <div class="mil-label mil-upper mil-accent">
-                          DESIGN ENGINEERING
-                        </div> -->
-                        <div class="mil-label mil-upper"></div>
                       </div>
-                      <h4 class="mil-up mil-mb-30">
-                        Bottle Poka-Yoke Detection & Sorting System
-                      </h4>
-                      <p class="mil-text-xls mil-dark mil-up mil-mb-30">
-                        This project focused on the design and development of a
-                        fully automated dual-robot welding cell aimed at
-                        eliminating manual handling, stabilizing workflow.
-                      </p>
 
-                      <a
-                        href=""
-                        class="mil-button mil-arrow-place mil-btn-space mil-mb-60"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-no-swup
-                      >
-                        <span>View Case Study</span>
-                      </a>
-                    </div>
-                  </a>
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          Automated Dual-Robot Welding Cell
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on the design and development of
+                          a fully automated dual-robot welding cell aimed at
+                          eliminating manual handling, stabilizing workflow and
+                          significantly improving production.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
                 </div>
 
-               <div class="col-lg-6 project-demacation">
-                  <a
-                    href=""
-                    class="mil-portfolio-item mil-more mil-mb-30"
+                <!-- VIDEO 2 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
                   >
-                    <!-- <div class="mil-image-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <video autoplay loop muted playsinline>
-                          <source src="img/works/SH1.mp4" type="video/mp4" />
-                        </video>
-                      </div>
-                    </div> -->
-                    <div class="col-12 col-md-6 col-lg-12 mil-mb-10">
-                      <div class="mil-team-card mil-video-card mil-up">
-                        <div class="youtube-hover-container">
-                          <img src="img/faces/WELD4.png" alt="Conveyor-Integrated Inline Bottle Inversion Fixture" class="youtube-thumbnail" />
-                          <iframe 
-                            class="youtube-iframe" 
-                            src="https://www.youtube.com/embed/pLKiVhX3T9s?enablejsapi=1&mute=1" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                          ></iframe>
-                          <div class="play-button-overlay">
-                            <svg width="68" height="48" viewBox="0 0 68 48">
-                              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.63-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
-                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                            </svg>
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/3d1Te70gU28"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
                           </div>
                         </div>
-                        
                       </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <!-- <div class="mil-label mil-upper mil-accent">
-                          DESIGN ENGINEERING
-                        </div> -->
-                        <div class="mil-label mil-upper"></div>
-                      </div>
-                      <h4 class="mil-up mil-mb-30">
-                        Conveyor-Integrated Inline Bottle Inversion Fixture for Bottom Labeling
-                      </h4>
-                      <p class="mil-text-xls mil-dark mil-up mil-mb-30">
-                        This project focused on the design and development of a
-                        fully automated dual-robot welding cell aimed at
-                        eliminating manual handling, stabilizing workflow.
-                      </p>
 
-                      <a
-                        href=""
-                        class="mil-button mil-arrow-place mil-btn-space mil-mb-60"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-no-swup
-                      >
-                        <span>View Case Study</span>
-                      </a>
-                    </div>
-                  </a>
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          Automated Poka-Yoke Detection and Separation System
+                          for Soda Can
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on the design and development of
+                          an automated Poka-Yoke detection and separation system
+                          integrated into a soda can production line.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
                 </div>
 
+                <!-- VIDEO 3 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/pLKiVhX3T9s"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          Conveyor-Integrated Bottle Flipping System for Inline
+                          Bottom Laser Labeling
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focuses on the design of a
+                          conveyor-integrated bottle flipping system engineered
+                          to enable inline bottom-surface laser labeling within
+                          a single production line.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- VIDEO 4 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/nX7Yy8sSkRI"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          Design of Dedicated Fixture and Jig for Arm Clevis
+                          Link
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on the design and development of
+                          a dedicated fixture and jig for the Arm Clevis Link to
+                          ensure accurate positioning, alignment during
+                          manufacturing
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- VIDEO 5 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/HzsKvr-4k8U"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          Dual-Station CNC Fixture and Jig System
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project involved the design and optimization of a
+                          manufacturing process for an aluminum gripper block
+                          used in a mechanical gripping and clamping assembly.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- VIDEO 6 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/q3kCGlQ8ahA"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          CAD Modeling of Engine Crankshaft Assembly
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on CAD modeling and assembly of
+                          an internal combustion engine crankshaft system
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- VIDEO 7 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/cbn_tA9IpsY"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          CNC Machining Simulation for Clevis Link Production
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on developing and validating a
+                          CNC machining process for manufacturing a lightweight
+                          aluminum Clevis Link using Autodesk Fusion 360 CAM.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- VIDEO 8 -->
+                <div class="col-lg-6">
+                  <div
+                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                  >
+                    <a href="project-2.html">
+                      <div class="mil-cover-frame mil-hori mil-up">
+                        <div class="mil-cover">
+                          <div class="bube-portfolio-youtube-wrapper">
+                            <iframe
+                              class="bube-portfolio-youtube-frame"
+                              src="https://www.youtube.com/embed/8RbVi1mPhvY"
+                              title="YouTube video"
+                              frameborder="0"
+                              allow="
+                                accelerometer;
+                                autoplay;
+                                clipboard-write;
+                                encrypted-media;
+                                gyroscope;
+                                picture-in-picture;
+                              "
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mil-descr">
+                        <h4 class="mil-up mil-mb-30">
+                          CNC Machining Simulation for Gripper Block Production
+                        </h4>
+
+                        <p class="mil-text-xls mil-dark mil-up mil-mb-30">
+                          This project focused on developing and validating a
+                          complete CNC machining process for manufacturing an
+                          aluminum Gripper Block using Autodesk Fusion 360 CAM.
+                        </p>
+
+                        <a
+                          href="services.html"
+                          class="mil-button mil-arrow-place mil-btn-space"
+                        >
+                          <span>View Case Study</span>
+                        </a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
           <!-- portfolio end -->
+
+          <!-- ----------------------------------------------------------------------------------- -->
 
           <!-- footer -->
           <footer class="mil-dark-bg">
